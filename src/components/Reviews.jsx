@@ -3,17 +3,17 @@ import * as api from '../utils/api';
 import ReviewCard from './ReviewCard';
 
 function Reviews( {reviews, updateReviews} ) {
-    const [isLoading, updateIsLoading] = useState(true);
+    const [areReviewsLoading, updateAreReviewsLoading] = useState(true);
 
     useEffect(() => {
         api.getReviews()
             .then((response) => {
                 updateReviews(response);
-                updateIsLoading(false);
+                updateAreReviewsLoading(false);
             })
     }, []);
 
-    if (isLoading) {
+    if (areReviewsLoading) {
         return <p>Loading...</p>
     }
 
