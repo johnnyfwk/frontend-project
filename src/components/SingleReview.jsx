@@ -1,8 +1,8 @@
 function SingleReview() {
     return (
-        <section>
-            SingleReview
-        </section>
+        <main>
+            <h1>SingleReview</h1>
+        </main>
     )
 }
 
