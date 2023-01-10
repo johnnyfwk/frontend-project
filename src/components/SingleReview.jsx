@@ -5,13 +5,19 @@ import * as api from '../utils/api';
 export default function SingleReview() {
     const {review_id} = useParams();
     const [singleReview, updateSingleReview] = useState( {} );
+    const [isLoading, updateIsLoading] = useState(true);
 
     useEffect(() => {
         api.getSingleReview(review_id)
             .then((response) => {
                 updateSingleReview(response);
+                updateIsLoading(false);
             })
     }, []);
+
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
 
     return (
         <main>
