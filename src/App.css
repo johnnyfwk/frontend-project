@@ -65,7 +65,24 @@ p {
 
 #single-review button {
   padding: 10px;
-  font-size: 1.2rem;;
+  font-size: 1.2rem;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 10px;;
+}
+
+#single-review-vote-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+#single-review-decrement-vote {
+  background: red;
+}
+
+#single-review-increment-vote {
+  background: green;
 }
 
 #review-votes-not-updated {

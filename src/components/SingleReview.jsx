@@ -9,10 +9,8 @@ export default function SingleReview() {
     const [isReviewLoading, setIsReviewLoading] = useState( true );
     const [commentsByReviewId, setCommentsByReviewId] = useState( [] );
     const [areCommentsLoading, setAreCommentsLoading] = useState( true );
-    const [incrementedVotes, setIncrementedVotes] = useState( 0 );
-    const [wasVotesIncrementedSuccessfully, setWasVotesIncrementedSuccessfully] = useState( null );
-
-    console.log(incrementedVotes, "<<<<<<<<<<<<< incrementedVotes");
+    const [votesChange, setVotesChange] = useState( 0 );
+    const [wasVotesChangedSuccessfully, setWasVotesChangedSuccessfully] = useState( null );
 
     useEffect(() => {
         setIsReviewLoading(true);
@@ -37,21 +35,34 @@ export default function SingleReview() {
     }
 
     function add1ToReviewVotes() {
-        // console.log("Vote button clicked for review ID", singleReview.review_id);
-        setIncrementedVotes((currentIncrementedVotes) => {
-            return currentIncrementedVotes + 1;
+        setVotesChange((currentVotesChange) => {
+            return currentVotesChange + 1;
         });
         api.patchVotesByReviewId(singleReview.review_id, 1)
             .then((response) => {
-                console.log("Review votes successfully incremented by 1!");
-                setWasVotesIncrementedSuccessfully(true);
+                setWasVotesChangedSuccessfully(true);
             })
             .catch((error) => {
-                setIncrementedVotes((currentIncrementedVotes) => {
-                    return currentIncrementedVotes - 1;
+                setVotesChange((currentVotesChange) => {
+                    return currentVotesChange - 1;
                 })
-                console.log(error, "<<<<<<<< patchVotesByReviewId error");
-                setWasVotesIncrementedSuccessfully(false);
+                setWasVotesChangedSuccessfully(false);
+            })
+    }
+
+    function subtract1FromReviewVotes() {
+        setVotesChange((currentVotesChange) => {
+            return currentVotesChange - 1;
+        });
+        api.patchVotesByReviewId(singleReview.review_id, -1)
+            .then((response) => {
+                setWasVotesChangedSuccessfully(true);
+            })
+            .catch((error) => {
+                setVotesChange((currentVotesChange) => {
+                    return currentVotesChange + 1;
+                })
+                setWasVotesChangedSuccessfully(false);
             })
     }
 
@@ -64,9 +75,12 @@ export default function SingleReview() {
                 <p><span className='review-card-key'>Category: </span>{singleReview.category}</p>
                 <p><span className='review-card-key'>Designer: </span>{singleReview.designer}</p>
                 <p><span className='review-card-key'>Owner: </span>{singleReview.owner}</p>
-                <p><span className='review-card-key'>Votes: </span>{singleReview.votes + incrementedVotes}</p>
-                {wasVotesIncrementedSuccessfully === false ? <p id='review-votes-not-updated'>Could not update votes.</p> : null}
-                <button onClick={add1ToReviewVotes}>Vote +1</button>
+                <p><span className='review-card-key'>Votes: </span>{singleReview.votes + votesChange}</p>
+                {wasVotesChangedSuccessfully === false ? <p id='review-votes-not-updated'>Could not update votes.</p> : null}
+                <div id='single-review-vote-buttons'>                    
+                    <button id='single-review-decrement-vote' onClick={subtract1FromReviewVotes}>Vote -1</button>
+                    <button id='single-review-increment-vote' onClick={add1ToReviewVotes}>Vote +1</button>
+                </div>                
                 <p>{singleReview.review_body}</p>
             </section>
 
