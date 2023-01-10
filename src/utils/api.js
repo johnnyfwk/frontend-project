@@ -19,3 +19,11 @@ export function getCategories() {
             return response.data.categories;
         })
 }
+
+export function getSingleReview(reviewId) {
+    return gamesBaseUrl
+        .get(`/reviews/${reviewId}`)
+        .then((response) => {
+            return response.data.review;
+        })
+}

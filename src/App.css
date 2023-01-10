@@ -37,6 +37,10 @@ main {
   padding: 0px 30px 30px 30px;
 }
 
+p {
+  line-height: 2rem;
+}
+
 footer {
   padding: 10px;
 }
@@ -54,7 +58,7 @@ footer {
   max-width: 600px;
 }
 
-.review-card > img {
+.review-card img {
   height: 300px;
   object-fit: cover;
 }
