@@ -37,6 +37,10 @@ main {
   padding: 0px 30px 30px 30px;
 }
 
+p {
+  line-height: 2rem;
+}
+
 footer {
   padding: 10px;
 }

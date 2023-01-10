@@ -8,6 +8,7 @@ import Nav from './components/Nav';
 import Reviews from './components/Reviews';
 import Footer from './components/Footer';
 import Error404 from './components/Error404';
+import SingleReview from './components/SingleReview';
 
 function App() {
   const [ reviews, updateReviews ] = useState( [] );
@@ -29,6 +30,8 @@ function App() {
               categories={categories}
               updateCategories={updateCategories} />}>
           </Route>
+
+          <Route path="/reviews/:review_id" element={<SingleReview />}></Route>
 
           <Route path="/*" element={<Error404 />}></Route>
 
