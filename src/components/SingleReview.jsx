@@ -9,6 +9,10 @@ export default function SingleReview() {
     const [isReviewLoading, setIsReviewLoading] = useState( true );
     const [commentsByReviewId, setCommentsByReviewId] = useState( [] );
     const [areCommentsLoading, setAreCommentsLoading] = useState( true );
+    const [incrementedVotes, setIncrementedVotes] = useState( 0 );
+    const [wasVotesIncrementedSuccessfully, setWasVotesIncrementedSuccessfully] = useState( null );
+
+    console.log(incrementedVotes, "<<<<<<<<<<<<< incrementedVotes");
 
     useEffect(() => {
         setIsReviewLoading(true);
@@ -32,16 +36,37 @@ export default function SingleReview() {
         return <p>Loading...</p>
     }
 
+    function add1ToReviewVotes() {
+        // console.log("Vote button clicked for review ID", singleReview.review_id);
+        setIncrementedVotes((currentIncrementedVotes) => {
+            return currentIncrementedVotes + 1;
+        });
+        api.patchVotesByReviewId(singleReview.review_id, 1)
+            .then((response) => {
+                console.log("Review votes successfully incremented by 1!");
+                setWasVotesIncrementedSuccessfully(true);
+            })
+            .catch((error) => {
+                setIncrementedVotes((currentIncrementedVotes) => {
+                    return currentIncrementedVotes - 1;
+                })
+                console.log(error, "<<<<<<<< patchVotesByReviewId error");
+                setWasVotesIncrementedSuccessfully(false);
+            })
+    }
+
     return (
         <main>
             <h1>{singleReview.title}</h1>
 
-            <section>
+            <section id='single-review'>
                 <img src={singleReview.review_img_url} alt={singleReview.title}></img>
                 <p><span className='review-card-key'>Category: </span>{singleReview.category}</p>
                 <p><span className='review-card-key'>Designer: </span>{singleReview.designer}</p>
                 <p><span className='review-card-key'>Owner: </span>{singleReview.owner}</p>
-                <p><span className='review-card-key'>Votes: </span>{singleReview.votes}</p>
+                <p><span className='review-card-key'>Votes: </span>{singleReview.votes + incrementedVotes}</p>
+                {wasVotesIncrementedSuccessfully === false ? <p id='review-votes-not-updated'>Could not update votes.</p> : null}
+                <button onClick={add1ToReviewVotes}>Vote +1</button>
                 <p>{singleReview.review_body}</p>
             </section>
 
