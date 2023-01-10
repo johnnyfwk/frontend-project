@@ -6,7 +6,6 @@ import Home from './components/Home';
 import Header from './components/Header';
 import Nav from './components/Nav';
 import Reviews from './components/Reviews';
-import SingleReview from './components/SingleReview';
 import Footer from './components/Footer';
 import Error404 from './components/Error404';
 
@@ -29,11 +28,6 @@ function App() {
               updateReviews={updateReviews}
               categories={categories}
               updateCategories={updateCategories} />}>
-          </Route>
-
-          <Route
-            path="/reviews/:review_id"
-            element={<SingleReview />}>
           </Route>
 
           <Route path="/*" element={<Error404 />}></Route>
