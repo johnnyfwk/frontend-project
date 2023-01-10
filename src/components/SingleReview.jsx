@@ -5,24 +5,26 @@ import CommentCard from './CommentCard';
 
 export default function SingleReview() {
     const {review_id} = useParams();
-    const [singleReview, updateSingleReview] = useState( {} );
-    const [isReviewLoading, updateIsReviewLoading] = useState(true);
-    const [commentsByReviewId, updateCommentsByReviewId] = useState( [] );
-    const [areCommentsLoading, updateAreCommentsLoading] = useState( true );
+    const [singleReview, setSingleReview] = useState( {} );
+    const [isReviewLoading, setIsReviewLoading] = useState( true );
+    const [commentsByReviewId, setCommentsByReviewId] = useState( [] );
+    const [areCommentsLoading, setAreCommentsLoading] = useState( true );
 
     useEffect(() => {
+        setIsReviewLoading(true);
         api.getSingleReview(review_id)
             .then((response) => {
-                updateSingleReview(response);
-                updateIsReviewLoading(false);
+                setSingleReview(response);
+                setIsReviewLoading(false);
             })
     }, []);
 
     useEffect(() => {
+        setAreCommentsLoading(true);
         api.getCommentsByReviewId(review_id)
             .then((response) => {
-                updateCommentsByReviewId(response);
-                updateAreCommentsLoading(false);
+                setCommentsByReviewId(response);
+                setAreCommentsLoading(false);
             })
     }, [])
 

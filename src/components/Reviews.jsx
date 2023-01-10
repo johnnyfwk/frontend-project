@@ -2,14 +2,15 @@ import { useState, useEffect } from "react";
 import * as api from '../utils/api';
 import ReviewCard from './ReviewCard';
 
-function Reviews( {reviews, updateReviews} ) {
-    const [areReviewsLoading, updateAreReviewsLoading] = useState(true);
+function Reviews( {reviews, setReviews} ) {
+    const [areReviewsLoading, setAreReviewsLoading] = useState(true);
 
     useEffect(() => {
+        setAreReviewsLoading(true);
         api.getReviews()
             .then((response) => {
-                updateReviews(response);
-                updateAreReviewsLoading(false);
+                setReviews(response);
+                setAreReviewsLoading(false);
             })
     }, []);
 
