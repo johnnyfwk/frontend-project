@@ -27,3 +27,11 @@ export function getSingleReview(reviewId) {
             return response.data.review;
         })
 }
+
+export function getCommentsByReviewId(reviewId) {
+    return gamesBaseUrl
+        .get(`/reviews/${reviewId}/comments`)
+        .then((response) => {
+            return response.data.comments;
+        })
+}

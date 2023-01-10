@@ -11,8 +11,7 @@ import Error404 from './components/Error404';
 import SingleReview from './components/SingleReview';
 
 function App() {
-  const [ reviews, updateReviews ] = useState( [] );
-  const [ categories, updateCategories ] = useState( [] );
+  const [ reviews, setReviews ] = useState( [] );
 
   return (
     <div className="App">
@@ -26,9 +25,7 @@ function App() {
             path="/reviews"
             element={<Reviews
               reviews={reviews}
-              updateReviews={updateReviews}
-              categories={categories}
-              updateCategories={updateCategories} />}>
+              setReviews={setReviews} />}>
           </Route>
 
           <Route path="/reviews/:review_id" element={<SingleReview />}></Route>
