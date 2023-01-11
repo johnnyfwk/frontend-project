@@ -63,16 +63,19 @@ p {
   font-weight: bold;
 }
 
-#single-review-votes button {
+button {
   padding: 10px;
+  font-weight: bold;
+}
+
+#single-review-votes button {
   font-size: 1.2rem;
   color: #ffffff;
-  font-weight: bold;
-  border-radius: 10px;;
 }
 
 #single-review-votes div {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
 }
@@ -85,7 +88,9 @@ p {
   background: green;
 }
 
-#review-votes-not-updated {
+#review-votes-not-updated,
+#review-comment-input-empty,
+#review-comment-posting-failed {
   color: red;
 }
 
@@ -98,6 +103,25 @@ p {
   background: #eeeeee;
   padding: 10px;
   border: 1px solid #b6b6b6;
+}
+
+#review-comment-input-form {
+  display: grid;
+  gap: 10px;
+}
+
+#review-comment-input {
+  width: 100%;
+  height: 100px;
+}
+
+#review-comment-input-form button{
+  width: 150px;
+  margin: auto;
+}
+
+#review-comment-posting-successful {
+  color: green;
 }
 
 footer {

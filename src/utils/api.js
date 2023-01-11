@@ -40,3 +40,11 @@ export function patchVotesByReviewId(reviewId, increment) {
     return gamesBaseUrl
         .patch(`/reviews/${reviewId}`, {inc_votes: increment})
 }
+
+export function postReviewComment(username, reviewId, reviewComment) {
+    return gamesBaseUrl
+        .post(`/reviews/${reviewId}/comments`, {"username": username, "body": reviewComment})
+        .then((response) => {
+            return response;
+        })
+}

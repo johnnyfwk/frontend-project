@@ -10,7 +10,9 @@ import Footer from './components/Footer';
 import Error404 from './components/Error404';
 import SingleReview from './components/SingleReview';
 
+
 function App() {
+  const [usernameLoggedIn, setUsernameLoggedIn] = useState( "tickle122" );
   const [ reviews, setReviews ] = useState( [] );
 
   return (
@@ -23,7 +25,7 @@ function App() {
             path="/reviews"
             element={<Reviews reviews={reviews} setReviews={setReviews} />}>
           </Route>
-          <Route path="/reviews/:review_id" element={<SingleReview />}></Route>
+          <Route path="/reviews/:review_id" element={<SingleReview usernameLoggedIn={usernameLoggedIn}/>}></Route>
           <Route path="/*" element={<Error404 />}></Route>
         </Routes>
         <Footer />

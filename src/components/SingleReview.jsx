@@ -4,8 +4,9 @@ import * as api from '../utils/api';
 import CommentCard from './CommentCard';
 import SingleReviewDetails from './SingleReviewDetails';
 import SingleReviewVotes from './SingleReviewVotes';
+import SingleReviewPostComment from './SingleReviewPostComment';
 
-export default function SingleReview() {
+export default function SingleReview( {usernameLoggedIn} ) {
     const {review_id} = useParams();
     const [singleReview, setSingleReview] = useState( {} );
     const [isReviewLoading, setIsReviewLoading] = useState( true );
@@ -13,6 +14,7 @@ export default function SingleReview() {
     const [areCommentsLoading, setAreCommentsLoading] = useState( true );
     const [votesChange, setVotesChange] = useState( 0 );
     const [wasVotesChangedSuccessfully, setWasVotesChangedSuccessfully] = useState( null );
+    const [wasReviewCommentPostedSuccessfully, setReviewWasCommentPostedSuccessfully] = useState( null );
 
     useEffect(() => {
         setIsReviewLoading(true);
@@ -30,7 +32,7 @@ export default function SingleReview() {
                 setCommentsByReviewId(response);
                 setAreCommentsLoading(false);
             })
-    }, [])
+    }, [wasReviewCommentPostedSuccessfully])
 
     if (isReviewLoading) {
         return <p>Loading...</p>
@@ -46,6 +48,13 @@ export default function SingleReview() {
                 setVotesChange={setVotesChange}
                 wasVotesChangedSuccessfully={wasVotesChangedSuccessfully}
                 setWasVotesChangedSuccessfully={setWasVotesChangedSuccessfully}
+            />
+
+            <SingleReviewPostComment
+                usernameLoggedIn={usernameLoggedIn}
+                singleReview={singleReview}
+                wasReviewCommentPostedSuccessfully={wasReviewCommentPostedSuccessfully}
+                setReviewWasCommentPostedSuccessfully={setReviewWasCommentPostedSuccessfully}
             />
 
             <section>
