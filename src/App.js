@@ -18,20 +18,13 @@ function App() {
         <Header />
         <Nav />
         <Routes>
-
           <Route path="/" element={<Home />}></Route>
-
           <Route
             path="/reviews"
-            element={<Reviews
-              reviews={reviews}
-              setReviews={setReviews} />}>
+            element={<Reviews reviews={reviews} setReviews={setReviews} />}>
           </Route>
-
           <Route path="/reviews/:review_id" element={<SingleReview />}></Route>
-
           <Route path="/*" element={<Error404 />}></Route>
-
         </Routes>
         <Footer />
     </div>

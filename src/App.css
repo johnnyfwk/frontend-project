@@ -63,7 +63,7 @@ p {
   font-weight: bold;
 }
 
-#single-review button {
+#single-review-votes button {
   padding: 10px;
   font-size: 1.2rem;
   color: #ffffff;
@@ -71,7 +71,7 @@ p {
   border-radius: 10px;;
 }
 
-#single-review-vote-buttons {
+#single-review-votes div {
   display: flex;
   gap: 10px;
   justify-content: center;
