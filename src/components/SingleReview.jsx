@@ -14,7 +14,7 @@ export default function SingleReview( {usernameLoggedIn} ) {
     const [areCommentsLoading, setAreCommentsLoading] = useState( true );
     const [votesChange, setVotesChange] = useState( 0 );
     const [wasVotesChangedSuccessfully, setWasVotesChangedSuccessfully] = useState( null );
-    const [wasReviewCommentPostedSuccessfully, setReviewWasCommentPostedSuccessfully] = useState( null );
+    const [wasReviewCommentPostedSuccessfully, setWasReviewCommentPostedSuccessfully] = useState( null );
 
     useEffect(() => {
         setIsReviewLoading(true);
@@ -54,7 +54,7 @@ export default function SingleReview( {usernameLoggedIn} ) {
                 usernameLoggedIn={usernameLoggedIn}
                 singleReview={singleReview}
                 wasReviewCommentPostedSuccessfully={wasReviewCommentPostedSuccessfully}
-                setReviewWasCommentPostedSuccessfully={setReviewWasCommentPostedSuccessfully}
+                setWasReviewCommentPostedSuccessfully={setWasReviewCommentPostedSuccessfully}
             />
 
             <section>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as api from '../utils/api';
 
-export default function SingleReviewPostComment( {usernameLoggedIn, singleReview, wasReviewCommentPostedSuccessfully, setReviewWasCommentPostedSuccessfully} ) {
+export default function SingleReviewPostComment( {usernameLoggedIn, singleReview, wasReviewCommentPostedSuccessfully, setWasReviewCommentPostedSuccessfully} ) {
     const [reviewCommentInput, setReviewCommentInput] = useState( "" );
     const [isReviewCommentInputEmpty, setIsReviewCommentInputEmpty] = useState( null );
     const [isCommentBeingPosted, setIsCommentBeingPosted] = useState( false );
@@ -12,7 +12,7 @@ export default function SingleReviewPostComment( {usernameLoggedIn, singleReview
 
     function onClickSubmitCommentButton(event) {
         event.preventDefault();
-        setReviewWasCommentPostedSuccessfully(null);
+        setWasReviewCommentPostedSuccessfully(null);
         setIsCommentBeingPosted(false);
                 
         if (reviewCommentInput === "") {
@@ -24,11 +24,11 @@ export default function SingleReviewPostComment( {usernameLoggedIn, singleReview
             api.postReviewComment(usernameLoggedIn, singleReview.review_id, reviewCommentInput)
                 .then((response) => {
                     setReviewCommentInput("");
-                    setReviewWasCommentPostedSuccessfully(true);
+                    setWasReviewCommentPostedSuccessfully(true);
                     setIsCommentBeingPosted(false);
                 })
                 .catch((error) => {
-                    setReviewWasCommentPostedSuccessfully(false);
+                    setWasReviewCommentPostedSuccessfully(false);
                 })
         }
     }
