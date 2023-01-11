@@ -35,3 +35,8 @@ export function getCommentsByReviewId(reviewId) {
             return response.data.comments;
         })
 }
+
+export function patchVotesByReviewId(reviewId, increment) {
+    return gamesBaseUrl
+        .patch(`/reviews/${reviewId}`, {inc_votes: increment})
+}

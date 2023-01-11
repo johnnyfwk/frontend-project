@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import * as api from '../utils/api';
 import CommentCard from './CommentCard';
+import SingleReviewDetails from './SingleReviewDetails';
+import SingleReviewVotes from './SingleReviewVotes';
 
 export default function SingleReview() {
     const {review_id} = useParams();
@@ -9,6 +11,8 @@ export default function SingleReview() {
     const [isReviewLoading, setIsReviewLoading] = useState( true );
     const [commentsByReviewId, setCommentsByReviewId] = useState( [] );
     const [areCommentsLoading, setAreCommentsLoading] = useState( true );
+    const [votesChange, setVotesChange] = useState( 0 );
+    const [wasVotesChangedSuccessfully, setWasVotesChangedSuccessfully] = useState( null );
 
     useEffect(() => {
         setIsReviewLoading(true);
@@ -36,14 +40,13 @@ export default function SingleReview() {
         <main>
             <h1>{singleReview.title}</h1>
 
-            <section>
-                <img src={singleReview.review_img_url} alt={singleReview.title}></img>
-                <p><span className='review-card-key'>Category: </span>{singleReview.category}</p>
-                <p><span className='review-card-key'>Designer: </span>{singleReview.designer}</p>
-                <p><span className='review-card-key'>Owner: </span>{singleReview.owner}</p>
-                <p><span className='review-card-key'>Votes: </span>{singleReview.votes}</p>
-                <p>{singleReview.review_body}</p>
-            </section>
+            <SingleReviewDetails singleReview={singleReview} votesChange={votesChange}/>
+            <SingleReviewVotes
+                singleReview={singleReview}
+                setVotesChange={setVotesChange}
+                wasVotesChangedSuccessfully={wasVotesChangedSuccessfully}
+                setWasVotesChangedSuccessfully={setWasVotesChangedSuccessfully}
+            />
 
             <section>
                 <h2>Comments ({singleReview.comment_count})</h2>

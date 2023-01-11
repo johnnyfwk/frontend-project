@@ -41,10 +41,6 @@ p {
   line-height: 2rem;
 }
 
-footer {
-  padding: 10px;
-}
-
 #review-cards {
   display: grid;
   gap: 30px;
@@ -67,6 +63,32 @@ footer {
   font-weight: bold;
 }
 
+#single-review-votes button {
+  padding: 10px;
+  font-size: 1.2rem;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 10px;;
+}
+
+#single-review-votes div {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+#single-review-decrement-vote {
+  background: red;
+}
+
+#single-review-increment-vote {
+  background: green;
+}
+
+#review-votes-not-updated {
+  color: red;
+}
+
 #comment-cards {
   display: grid;
   gap: 10px;
@@ -76,6 +98,10 @@ footer {
   background: #eeeeee;
   padding: 10px;
   border: 1px solid #b6b6b6;
+}
+
+footer {
+  padding: 10px;
 }
 
 @media only screen and (min-width: 768px) {
