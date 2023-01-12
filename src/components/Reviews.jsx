@@ -39,7 +39,7 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
 
     return (
         <main>
-            <h1>Reviews</h1>
+            {categorySearchParam ? <h1>{utils.createUserFriendlyCategoryName(categorySearchParam)} Reviews</h1> : <h1>All Reviews</h1>}
 
             <div id="category-links">
                 {categories.map((category) => {
