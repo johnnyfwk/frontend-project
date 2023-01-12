@@ -13,7 +13,7 @@ import SingleReview from './components/SingleReview';
 
 function App() {
   const [usernameLoggedIn, setUsernameLoggedIn] = useState( "tickle122" );
-  const [ reviews, setReviews ] = useState( [] );
+  const [reviews, setReviews] = useState( [] );
 
   return (
     <div className="App">

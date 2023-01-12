@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as api from '../utils/api';
 
-export default function SingleReviewPostComment( {usernameLoggedIn, singleReview, wasReviewCommentPostedSuccessfully, setWasReviewCommentPostedSuccessfully} ) {
+export default function SingleReviewPostComment( {usernameLoggedIn, singleReview, wasReviewCommentPostedSuccessfully, setWasReviewCommentPostedSuccessfully, setCurrentNumberOfComments, setCommentsByReviewId} ) {
     const [reviewCommentInput, setReviewCommentInput] = useState( "" );
     const [isReviewCommentInputEmpty, setIsReviewCommentInputEmpty] = useState( null );
     const [isCommentBeingPosted, setIsCommentBeingPosted] = useState( false );
@@ -23,14 +23,24 @@ export default function SingleReviewPostComment( {usernameLoggedIn, singleReview
             setIsCommentBeingPosted(true);
             api.postReviewComment(usernameLoggedIn, singleReview.review_id, reviewCommentInput)
                 .then((response) => {
+                    setCommentsByReviewId((currentCommentsById) => {
+                        return [ response.data.comment, ...currentCommentsById ];
+                    })
                     setReviewCommentInput("");
                     setWasReviewCommentPostedSuccessfully(true);
                     setIsCommentBeingPosted(false);
+                    setCurrentNumberOfComments((currentNumberOfComments) => {
+                        return currentNumberOfComments + 1;
+                    })
                 })
                 .catch((error) => {
                     setWasReviewCommentPostedSuccessfully(false);
                 })
         }
+    }
+
+    if (!usernameLoggedIn) {
+        return null;
     }
 
 	return (
@@ -51,14 +61,16 @@ export default function SingleReviewPostComment( {usernameLoggedIn, singleReview
                         : <p id="review-comment-posting-failed">Your comment was not posted.</p>}
                 {isCommentBeingPosted ? <p>Posting comment...</p> : null}
 
-				<input
-                    type="text"
+                <textarea
                     id="review-comment-input"
                     name="review-comment-input"
                     value={reviewCommentInput}
                     onChange={onChangeReviewCommentInput}>
-                </input>
-                <button onClick={onClickSubmitCommentButton}>Submit Comment</button>
+                </textarea>				
+
+                {isCommentBeingPosted
+                    ? <button onClick={onClickSubmitCommentButton} disabled>Submit Comment</button>
+                    : <button onClick={onClickSubmitCommentButton}>Submit Comment</button>}
 			</form>
 		</section>
 	)
