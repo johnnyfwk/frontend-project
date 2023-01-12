@@ -73,6 +73,14 @@ p {
   font-weight: bold;
 }
 
+#category-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+}
+
 button {
   padding: 10px;
   font-weight: bold;
