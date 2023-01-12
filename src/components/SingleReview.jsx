@@ -4,8 +4,9 @@ import * as api from '../utils/api';
 import CommentCard from './CommentCard';
 import SingleReviewDetails from './SingleReviewDetails';
 import SingleReviewVotes from './SingleReviewVotes';
+import SingleReviewPostComment from './SingleReviewPostComment';
 
-export default function SingleReview() {
+export default function SingleReview( {usernameLoggedIn} ) {
     const {review_id} = useParams();
     const [singleReview, setSingleReview] = useState( {} );
     const [isReviewLoading, setIsReviewLoading] = useState( true );
@@ -13,6 +14,9 @@ export default function SingleReview() {
     const [areCommentsLoading, setAreCommentsLoading] = useState( true );
     const [votesChange, setVotesChange] = useState( 0 );
     const [wasVotesChangedSuccessfully, setWasVotesChangedSuccessfully] = useState( null );
+    const [wasReviewCommentPostedSuccessfully, setWasReviewCommentPostedSuccessfully] = useState( null );
+    const [currentNumberOfComments, setCurrentNumberOfComments] = useState( 0 );
+    const [wereCommentsRetrievedSuccessfully, getWereCommentsRetrievedSuccessfully] = useState( null );
 
     useEffect(() => {
         setIsReviewLoading(true);
@@ -20,15 +24,28 @@ export default function SingleReview() {
             .then((response) => {
                 setSingleReview(response);
                 setIsReviewLoading(false);
+                setCurrentNumberOfComments(response.comment_count);
             })
     }, []);
 
     useEffect(() => {
+        getWereCommentsRetrievedSuccessfully(null);
         setAreCommentsLoading(true);
         api.getCommentsByReviewId(review_id)
             .then((response) => {
-                setCommentsByReviewId(response);
+                const commentsByReviewIdSorted = response.sort((a, b) => {
+                    if (a.comment_id > b.comment_id) {
+                        return -1;
+                    }
+                    else {
+                        return 1;
+                    }
+                })
+                setCommentsByReviewId(commentsByReviewIdSorted);
                 setAreCommentsLoading(false);
+            })
+            .catch((error) => {
+                getWereCommentsRetrievedSuccessfully(false);
             })
     }, [])
 
@@ -41,6 +58,7 @@ export default function SingleReview() {
             <h1>{singleReview.title}</h1>
 
             <SingleReviewDetails singleReview={singleReview} votesChange={votesChange}/>
+
             <SingleReviewVotes
                 singleReview={singleReview}
                 setVotesChange={setVotesChange}
@@ -48,9 +66,19 @@ export default function SingleReview() {
                 setWasVotesChangedSuccessfully={setWasVotesChangedSuccessfully}
             />
 
+            <SingleReviewPostComment
+                usernameLoggedIn={usernameLoggedIn}
+                singleReview={singleReview}
+                wasReviewCommentPostedSuccessfully={wasReviewCommentPostedSuccessfully}
+                setWasReviewCommentPostedSuccessfully={setWasReviewCommentPostedSuccessfully}
+                setCurrentNumberOfComments={setCurrentNumberOfComments}
+                setCommentsByReviewId={setCommentsByReviewId}
+            />
+
             <section>
-                <h2>Comments ({singleReview.comment_count})</h2>
+                <h2>Comments ({currentNumberOfComments})</h2>
                 {areCommentsLoading ? <p>Loading...</p> : null}
+                {wereCommentsRetrievedSuccessfully === null ? null : <p>Could not retrieve comments for this review.</p>}
                 <div id='comment-cards'>
                     {commentsByReviewId === undefined ? <p>No one has posted any comments for this review.</p>
                         : commentsByReviewId.map((comment) => {
