@@ -4,7 +4,7 @@ const gamesBaseUrl = axios.create({
     baseURL: 'https://backend-project-ji5u.onrender.com/api'
 })
 
-export function getReviews(category) {
+export function getReviews() {
     return gamesBaseUrl
         .get('/reviews')
         .then((response) => {
