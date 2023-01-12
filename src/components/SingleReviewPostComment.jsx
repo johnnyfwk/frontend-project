@@ -66,11 +66,9 @@ export default function SingleReviewPostComment( {usernameLoggedIn, singleReview
                     name="review-comment-input"
                     value={reviewCommentInput}
                     onChange={onChangeReviewCommentInput}>
-                </textarea>				
+                </textarea>
 
-                {isCommentBeingPosted
-                    ? <button onClick={onClickSubmitCommentButton} disabled>Submit Comment</button>
-                    : <button onClick={onClickSubmitCommentButton}>Submit Comment</button>}
+                <button onClick={onClickSubmitCommentButton} disabled={isCommentBeingPosted}>Submit Comment</button>				
 			</form>
 		</section>
 	)
