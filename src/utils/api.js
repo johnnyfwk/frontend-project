@@ -4,9 +4,9 @@ const gamesBaseUrl = axios.create({
     baseURL: 'https://backend-project-ji5u.onrender.com/api'
 })
 
-export function getReviews(category) {
+export function getReviews(category, sortBy, orderBy) {
     return gamesBaseUrl
-        .get('/reviews', {params: {"category": category}})
+        .get('/reviews', {params: {"category": category, "sort_by": sortBy, "order": orderBy}})
         .then((response) => {
             return response.data.reviews;
         })

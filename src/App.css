@@ -73,7 +73,8 @@ p {
   font-weight: bold;
 }
 
-#category-links {
+#category-links,
+#sort-by-review-properties {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -140,6 +141,13 @@ button {
 
 #review-comment-posting-successful {
   color: green;
+}
+
+#order-by form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
 }
 
 footer {

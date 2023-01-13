@@ -12,6 +12,7 @@ export default function ReviewCard( {review} ) {
             <p><span className='review-card-key'>Category: </span>{review.category}</p>
             <p><span className='review-card-key'>Designer: </span>{review.designer}</p>
             <p><span className='review-card-key'>Owner: </span>{review.owner}</p>
+            <p><span className='review-card-key'>Votes: </span>{review.votes}</p>
         </div>
     )
 }

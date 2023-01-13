@@ -3,17 +3,24 @@ import { useSearchParams, Link } from "react-router-dom";
 import * as api from '../utils/api';
 import * as utils from '../utils/utils';
 import ReviewCard from './ReviewCard';
+import OrderBy from './OrderBy';
+import ReviewProperties from './ReviewProperties';
 
 function Reviews( {reviews, setReviews, categories, setCategories} ) {
     const [areReviewsLoading, setAreReviewsLoading] = useState( true );
     const [searchParams, setSearchParams] = useSearchParams();
     const categoryQuery = searchParams.get( 'category' );
+    const sortByQuery = searchParams.get( 'sort_by' );
     const [errorMessage, setErrorMessage] = useState( null );
+    const [orderBy, setOrderBy] = useState( "desc" );
+    const [reviewProperties, setReviewProperties] = useState( [] );
+
     useEffect(() => {
         setErrorMessage(null);
         setAreReviewsLoading(true);
-        api.getReviews(categoryQuery)
+        api.getReviews(categoryQuery, sortByQuery, orderBy)
             .then((response) => {
+                setReviewProperties(Object.keys(response[0]));
                 setReviews(response);
                 setAreReviewsLoading(false);
             })
@@ -21,7 +28,7 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
                 setErrorMessage(error);
                 setAreReviewsLoading(false);
             })
-    }, [categoryQuery]);
+    }, [categoryQuery, sortByQuery, orderBy]);
 
     useEffect(() => {
         api.getCategories()
@@ -44,7 +51,11 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
                 })}
             </div>
 
-            {errorMessage ? <p>Reviews could not be loaded.</p> : null}            
+            {errorMessage ? <p>Reviews could not be loaded.</p> : null}
+
+            <ReviewProperties reviewProperties={reviewProperties} categoryQuery={categoryQuery}/>
+
+            <OrderBy orderBy={orderBy} setOrderBy={setOrderBy}/>     
 
             <section id='review-cards'>
                 {reviews.map((review) => {
