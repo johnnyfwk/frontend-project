@@ -109,7 +109,8 @@ button {
 
 #review-votes-not-updated,
 #review-comment-input-empty,
-#review-comment-posting-failed {
+#review-comment-posting-failed,
+#comment-not-deleted {
   color: red;
 }
 
@@ -139,7 +140,8 @@ button {
   margin: auto;
 }
 
-#review-comment-posting-successful {
+#review-comment-posting-successful,
+#comment-deleted-successfully {
   color: green;
 }
 
@@ -148,6 +150,11 @@ button {
   justify-content: center;
   gap: 10px;
   padding: 10px;
+}
+
+#delete-comment-button {
+  background: red;
+  color: white;
 }
 
 footer {

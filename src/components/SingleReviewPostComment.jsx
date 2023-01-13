@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as api from '../utils/api';
 
-export default function SingleReviewPostComment( {usernameLoggedIn, singleReview, wasReviewCommentPostedSuccessfully, setWasReviewCommentPostedSuccessfully, setCurrentNumberOfComments, setCommentsByReviewId} ) {
+export default function SingleReviewPostComment( {usernameLoggedIn, singleReview, wasReviewCommentPostedSuccessfully, setWasReviewCommentPostedSuccessfully, setCurrentNumberOfComments, setCommentsByReviewId, setIsCommentDeletedSuccessfully} ) {
     const [reviewCommentInput, setReviewCommentInput] = useState( "" );
     const [isReviewCommentInputEmpty, setIsReviewCommentInputEmpty] = useState( null );
     const [isCommentBeingPosted, setIsCommentBeingPosted] = useState( false );
@@ -14,6 +14,7 @@ export default function SingleReviewPostComment( {usernameLoggedIn, singleReview
         event.preventDefault();
         setWasReviewCommentPostedSuccessfully(null);
         setIsCommentBeingPosted(false);
+        setIsCommentDeletedSuccessfully(null)
                 
         if (reviewCommentInput === "") {
             setIsReviewCommentInputEmpty(true);

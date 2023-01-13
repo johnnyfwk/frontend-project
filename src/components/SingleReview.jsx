@@ -17,6 +17,7 @@ export default function SingleReview( {usernameLoggedIn} ) {
     const [wasReviewCommentPostedSuccessfully, setWasReviewCommentPostedSuccessfully] = useState( null );
     const [currentNumberOfComments, setCurrentNumberOfComments] = useState( 0 );
     const [wereCommentsRetrievedSuccessfully, getWereCommentsRetrievedSuccessfully] = useState( null );
+    const [isCommentDeletedSuccessfully, setIsCommentDeletedSuccessfully] = useState( null );
 
     useEffect(() => {
         setIsReviewLoading(true);
@@ -35,7 +36,7 @@ export default function SingleReview( {usernameLoggedIn} ) {
             .then((response) => {
                 if (response) {
                     const commentsByReviewIdSorted = response.sort((a, b) => {
-                        if (a.votes > b.votes) {
+                        if (a.comment_id > b.comment_id) {
                             return -1;
                         }
                         else {
@@ -79,16 +80,24 @@ export default function SingleReview( {usernameLoggedIn} ) {
                 setWasReviewCommentPostedSuccessfully={setWasReviewCommentPostedSuccessfully}
                 setCurrentNumberOfComments={setCurrentNumberOfComments}
                 setCommentsByReviewId={setCommentsByReviewId}
+                setIsCommentDeletedSuccessfully={setIsCommentDeletedSuccessfully}
             />
 
             <section>
                 <h2>Comments ({currentNumberOfComments})</h2>
+
                 {areCommentsLoading ? <p>Loading...</p> : null}
                 {wereCommentsRetrievedSuccessfully === null ? null : <p>Could not retrieve comments for this review.</p>}
+                {isCommentDeletedSuccessfully === null
+                    ? null
+                    : isCommentDeletedSuccessfully === true
+                        ? <p id="comment-deleted-successfully">Your comment was successfully deleted!</p>
+                        : <p id="comment-not-deleted">Your comment was not deleted.</p>}
+
                 <div id='comment-cards'>
                     {commentsByReviewId === undefined ? <p>No one has posted any comments for this review.</p>
                         : commentsByReviewId.map((comment) => {
-                            return <CommentCard key={comment.comment_id} comment={comment}/>
+                            return <CommentCard key={comment.comment_id} comment={comment} usernameLoggedIn={usernameLoggedIn} setCommentsByReviewId={setCommentsByReviewId} setCurrentNumberOfComments={setCurrentNumberOfComments} setIsCommentDeletedSuccessfully={setIsCommentDeletedSuccessfully}/>
                         })}
                 </div>
             </section>            
