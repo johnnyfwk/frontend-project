@@ -3,12 +3,15 @@ import { useSearchParams, Link } from "react-router-dom";
 import * as api from '../utils/api';
 import * as utils from '../utils/utils';
 import ReviewCard from './ReviewCard';
+import OrderBy from './OrderBy';
+import ReviewProperties from './ReviewProperties';
 
 function Reviews( {reviews, setReviews, categories, setCategories} ) {
     const [areReviewsLoading, setAreReviewsLoading] = useState( true );
     const [searchParams, setSearchParams] = useSearchParams();
     const categoryQuery = searchParams.get( 'category' );
     const [errorMessage, setErrorMessage] = useState( null );
+
     useEffect(() => {
         setErrorMessage(null);
         setAreReviewsLoading(true);
@@ -44,7 +47,11 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
                 })}
             </div>
 
-            {errorMessage ? <p>Reviews could not be loaded.</p> : null}            
+            {errorMessage ? <p>Reviews could not be loaded.</p> : null}
+
+            <ReviewProperties reviewProperties={reviewProperties} categoryQuery={categoryQuery}/>
+
+            <OrderBy orderBy={orderBy} setOrderBy={setOrderBy}/>     
 
             <section id='review-cards'>
                 {reviews.map((review) => {
