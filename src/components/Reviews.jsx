@@ -11,12 +11,15 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
     const [searchParams, setSearchParams] = useSearchParams();
     const categoryQuery = searchParams.get( 'category' );
     const [errorMessage, setErrorMessage] = useState( null );
+    const [orderBy, setOrderBy] = useState( "desc" );
+    const [reviewProperties, setReviewProperties] = useState( [] );
 
     useEffect(() => {
         setErrorMessage(null);
         setAreReviewsLoading(true);
         api.getReviews(categoryQuery)
             .then((response) => {
+                setReviewProperties(Object.keys(response[0]));
                 setReviews(response);
                 setAreReviewsLoading(false);
             })
