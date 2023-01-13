@@ -8,20 +8,13 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
     const [areReviewsLoading, setAreReviewsLoading] = useState( true );
     const [searchParams, setSearchParams] = useSearchParams();
     const categoryQuery = searchParams.get( 'category' );
-    const [errorMessage, setErrorMessage] = useState( null ); 
-    
-
+    const [errorMessage, setErrorMessage] = useState( null );
     useEffect(() => {
         setErrorMessage(null);
         setAreReviewsLoading(true);
         api.getReviews(categoryQuery)
             .then((response) => {
-                if (categoryQuery === null) {
-                    setReviews(response);
-                }
-                else if (categoryQuery) {
-                    setReviews(response.filter((element) => element.category === categoryQuery));
-                }
+                setReviews(response);
                 setAreReviewsLoading(false);
             })
             .catch((error) => {
