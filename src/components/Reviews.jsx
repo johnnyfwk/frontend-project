@@ -8,10 +8,13 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
     const [areReviewsLoading, setAreReviewsLoading] = useState( true );
     const [searchParams, setSearchParams] = useSearchParams();
     const categoryQuery = searchParams.get( 'category' );
+    const [errorMessage, setErrorMessage] = useState( null ); 
+    
 
     useEffect(() => {
+        setErrorMessage(null);
         setAreReviewsLoading(true);
-        api.getReviews()
+        api.getReviews(categoryQuery)
             .then((response) => {
                 if (categoryQuery === null) {
                     setReviews(response);
@@ -22,7 +25,8 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
                 setAreReviewsLoading(false);
             })
             .catch((error) => {
-                console.log(error);
+                setErrorMessage(error);
+                setAreReviewsLoading(false);
             })
     }, [categoryQuery]);
 
@@ -45,7 +49,9 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
                 {categories.map((category) => {
                     return <Link key={category} to={`/reviews?category=${category}`}>{utils.createUserFriendlyCategoryName(category)}</Link>
                 })}
-            </div>            
+            </div>
+
+            {errorMessage ? <p>Reviews could not be loaded.</p> : null}            
 
             <section id='review-cards'>
                 {reviews.map((review) => {

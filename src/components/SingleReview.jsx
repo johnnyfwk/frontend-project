@@ -33,19 +33,25 @@ export default function SingleReview( {usernameLoggedIn} ) {
         setAreCommentsLoading(true);
         api.getCommentsByReviewId(review_id)
             .then((response) => {
-                const commentsByReviewIdSorted = response.sort((a, b) => {
-                    if (a.comment_id > b.comment_id) {
-                        return -1;
-                    }
-                    else {
-                        return 1;
-                    }
-                })
-                setCommentsByReviewId(commentsByReviewIdSorted);
+                if (response) {
+                    const commentsByReviewIdSorted = response.sort((a, b) => {
+                        if (a.votes > b.votes) {
+                            return -1;
+                        }
+                        else {
+                            return 1;
+                        }
+                    })
+                    setCommentsByReviewId(commentsByReviewIdSorted);
+                }
+                else {
+                    setCommentsByReviewId(response);
+                }                
                 setAreCommentsLoading(false);
             })
             .catch((error) => {
                 getWereCommentsRetrievedSuccessfully(false);
+                setAreCommentsLoading(false);
             })
     }, [])
 
