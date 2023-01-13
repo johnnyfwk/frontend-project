@@ -6,7 +6,7 @@ const gamesBaseUrl = axios.create({
 
 export function getReviews(category) {
     return gamesBaseUrl
-        .get('/reviews')
+        .get('/reviews', {params: {"category": category}})
         .then((response) => {
             return response.data.reviews;
         })

@@ -41,6 +41,16 @@ p {
   line-height: 2rem;
 }
 
+#category-cards {
+  display: grid;
+  gap: 30px;
+}
+
+.category-card {
+  background: #e7e7e7;
+  padding: 20px;
+}
+
 #review-cards {
   display: grid;
   gap: 30px;
@@ -61,6 +71,14 @@ p {
 
 .review-card-key {
   font-weight: bold;
+}
+
+#category-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
 }
 
 button {
@@ -129,7 +147,8 @@ footer {
 }
 
 @media only screen and (min-width: 768px) {
-  #review-cards {   
+  #review-cards,
+  #category-cards {   
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }
