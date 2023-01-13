@@ -7,24 +7,26 @@ import ReviewCard from './ReviewCard';
 function Reviews( {reviews, setReviews, categories, setCategories} ) {
     const [areReviewsLoading, setAreReviewsLoading] = useState( true );
     const [searchParams, setSearchParams] = useSearchParams();
-    const categorySearchParam = searchParams.get( 'category' );
+    const categoryQuery = searchParams.get( 'category' );
+
+    console.log(reviews)
 
     useEffect(() => {
         setAreReviewsLoading(true);
-        api.getReviews()
+        api.getReviews(categoryQuery)
             .then((response) => {
-                if (categorySearchParam === null) {
+                if (categoryQuery === null) {
                     setReviews(response);
                 }
-                else if (categorySearchParam) {
-                    setReviews(response.filter((element) => element.category === categorySearchParam));
-                }                
+                else if (categoryQuery) {
+                    setReviews(response.filter((element) => element.category === categoryQuery));
+                }
                 setAreReviewsLoading(false);
             })
             .catch((error) => {
                 console.log(error);
             })
-    }, [categorySearchParam]);
+    }, [categoryQuery]);
 
     useEffect(() => {
         api.getCategories()
@@ -39,7 +41,7 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
 
     return (
         <main>
-            {categorySearchParam ? <h1>{utils.createUserFriendlyCategoryName(categorySearchParam)} Reviews</h1> : <h1>All Reviews</h1>}
+            {categoryQuery ? <h1>{utils.createUserFriendlyCategoryName(categoryQuery)} Reviews</h1> : <h1>All Reviews</h1>}
 
             <div id="category-links">
                 {categories.map((category) => {
