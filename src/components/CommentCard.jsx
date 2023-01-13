@@ -1,24 +1,30 @@
 import { useState } from 'react';
 import * as api from '../utils/api';
 
-export default function CommentCard( {comment, usernameLoggedIn} ) {
+export default function CommentCard( {comment, usernameLoggedIn, setCommentsByReviewId, setCurrentNumberOfComments, setIsCommentDeletedSuccessfully} ) {
     
-    const [isCommentDeleted, setIsCommentDeleted] = useState( null );
+    
     const [isCommentBeingDeleted, setIsCommentBeingDeleted] = useState( false );
 
     function deleteComment(commentId) {
-        console.log("Delete comment button clicked.")
-        console.log(commentId, "----------- commentId")
         setIsCommentBeingDeleted(true);
         api.deleteComment(commentId)
             .then((response) => {
-                console.log("Comment has been sauccessfully deleted!");
-                setIsCommentDeleted(true);
+                setCommentsByReviewId((currentCommentsByReviewId) => {
+                    const commentsMinusDeleted = [];
+                    currentCommentsByReviewId.forEach((comment) => {
+                        if (comment.comment_id !== commentId) {
+                            commentsMinusDeleted.push(comment);
+                        }
+                    })
+                    setCurrentNumberOfComments(commentsMinusDeleted.length);
+                    return commentsMinusDeleted;
+                })
+                setIsCommentDeletedSuccessfully(true);
                 setIsCommentBeingDeleted(false);
             })
             .catch((error) => {
-                console.log("Comment could not be deleted");
-                setIsCommentDeleted(false);
+                setIsCommentDeletedSuccessfully(false);
                 setIsCommentBeingDeleted(false);
             })
     }
