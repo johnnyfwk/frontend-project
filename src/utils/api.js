@@ -48,3 +48,11 @@ export function postReviewComment(username, reviewId, reviewComment) {
             return response;
         })
 }
+
+export function deleteComment(commentId) {
+    return gamesBaseUrl
+        .delete(`/comments/${commentId}`)
+        .then((response) => {
+            return response;
+        })
+}

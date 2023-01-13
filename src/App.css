@@ -150,6 +150,11 @@ button {
   padding: 10px;
 }
 
+#delete-comment-button {
+  background: red;
+  color: white;
+}
+
 footer {
   padding: 10px;
 }

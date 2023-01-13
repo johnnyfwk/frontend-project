@@ -33,9 +33,10 @@ export default function SingleReview( {usernameLoggedIn} ) {
         setAreCommentsLoading(true);
         api.getCommentsByReviewId(review_id)
             .then((response) => {
+                console.log(response, "----------- getCommentsByReviewId")
                 if (response) {
                     const commentsByReviewIdSorted = response.sort((a, b) => {
-                        if (a.votes > b.votes) {
+                        if (a.comment_id > b.comment_id) {
                             return -1;
                         }
                         else {
@@ -54,6 +55,8 @@ export default function SingleReview( {usernameLoggedIn} ) {
                 setAreCommentsLoading(false);
             })
     }, [])
+
+    console.log(commentsByReviewId, "---------- commentsByReviewId");
 
     if (isReviewLoading) {
         return <p>Loading...</p>
@@ -88,7 +91,7 @@ export default function SingleReview( {usernameLoggedIn} ) {
                 <div id='comment-cards'>
                     {commentsByReviewId === undefined ? <p>No one has posted any comments for this review.</p>
                         : commentsByReviewId.map((comment) => {
-                            return <CommentCard key={comment.comment_id} comment={comment}/>
+                            return <CommentCard key={comment.comment_id} comment={comment} usernameLoggedIn={usernameLoggedIn}/>
                         })}
                 </div>
             </section>            
