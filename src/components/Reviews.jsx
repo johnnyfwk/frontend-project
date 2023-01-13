@@ -10,6 +10,7 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
     const [areReviewsLoading, setAreReviewsLoading] = useState( true );
     const [searchParams, setSearchParams] = useSearchParams();
     const categoryQuery = searchParams.get( 'category' );
+    const sortByQuery = searchParams.get( 'sort_by' );
     const [errorMessage, setErrorMessage] = useState( null );
     const [orderBy, setOrderBy] = useState( "desc" );
     const [reviewProperties, setReviewProperties] = useState( [] );
@@ -17,7 +18,7 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
     useEffect(() => {
         setErrorMessage(null);
         setAreReviewsLoading(true);
-        api.getReviews(categoryQuery)
+        api.getReviews(categoryQuery, sortByQuery, orderBy)
             .then((response) => {
                 setReviewProperties(Object.keys(response[0]));
                 setReviews(response);
@@ -27,7 +28,7 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
                 setErrorMessage(error);
                 setAreReviewsLoading(false);
             })
-    }, [categoryQuery]);
+    }, [categoryQuery, sortByQuery, orderBy]);
 
     useEffect(() => {
         api.getCategories()
