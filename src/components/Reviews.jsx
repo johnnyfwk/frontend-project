@@ -9,11 +9,9 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
     const [searchParams, setSearchParams] = useSearchParams();
     const categoryQuery = searchParams.get( 'category' );
 
-    console.log(reviews)
-
     useEffect(() => {
         setAreReviewsLoading(true);
-        api.getReviews(categoryQuery)
+        api.getReviews()
             .then((response) => {
                 if (categoryQuery === null) {
                     setReviews(response);
