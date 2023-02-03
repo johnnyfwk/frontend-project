@@ -13,14 +13,14 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
     const sortByQuery = searchParams.get( 'sort_by' );
     const [errorMessage, setErrorMessage] = useState( null );
     const [orderBy, setOrderBy] = useState( "desc" );
-    const [reviewProperties, setReviewProperties] = useState( [] );
+    const [reviewProperties, setReviewProperties] = useState( ["title", "designer", "owner", "created_at", "votes", "comment_count"] );
 
     useEffect(() => {
         setErrorMessage(null);
         setAreReviewsLoading(true);
         api.getReviews(categoryQuery, sortByQuery, orderBy)
             .then((response) => {
-                setReviewProperties(Object.keys(response[0]));
+                console.log(Object.keys(response[0]));
                 setReviews(response);
                 setAreReviewsLoading(false);
             })
