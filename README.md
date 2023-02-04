@@ -5,7 +5,7 @@ A made-up games review site with example data where visitors can read and write 
 This frontend project was created using React and uses Axios to pull data from the backend (Live URL: https://backend-project-ji5u.onrender.com/, Github repo: https://github.com/johnnyfwk/backend-project).
 
 To run this project locally:
-- got to Github repo at https://github.com/johnnyfwk/frontend-project;
+- go to the Github repo at https://github.com/johnnyfwk/frontend-project;
 - near the top of the page, click on the button labeled 'Code';
 - in the 'Local' tab, copy the HTTPS URL 'https://github.com/johnnyfwk/frontend-project.git';
 - in Terminal, go to the folder you want to clone the repo;
