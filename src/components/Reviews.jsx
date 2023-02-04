@@ -20,7 +20,6 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
         setAreReviewsLoading(true);
         api.getReviews(categoryQuery, sortByQuery, orderBy)
             .then((response) => {
-                console.log(Object.keys(response[0]));
                 setReviews(response);
                 setAreReviewsLoading(false);
             })
