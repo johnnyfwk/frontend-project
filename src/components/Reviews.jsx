@@ -7,13 +7,15 @@ import OrderBy from './OrderBy';
 import ReviewProperties from './ReviewProperties';
 
 function Reviews( {reviews, setReviews, categories, setCategories} ) {
-    const [areReviewsLoading, setAreReviewsLoading] = useState( true );
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [ areReviewsLoading, setAreReviewsLoading ] = useState( true );
+    const [ searchParams, setSearchParams ] = useSearchParams();    
+    const [ errorMessage, setErrorMessage ] = useState( null );
+    const [ orderBy, setOrderBy ] = useState( "desc" );
+    const [ reviewProperties, setReviewProperties ] = useState( ["title", "designer", "owner", "created_at", "votes", "comment_count"] );
+    const [ selectCategory, setSelectedCategory ] = useState( "strategy" );
+
     const categoryQuery = searchParams.get( 'category' );
     const sortByQuery = searchParams.get( 'sort_by' );
-    const [errorMessage, setErrorMessage] = useState( null );
-    const [orderBy, setOrderBy] = useState( "desc" );
-    const [reviewProperties, setReviewProperties] = useState( ["title", "designer", "owner", "created_at", "votes", "comment_count"] );
 
     useEffect(() => {
         setErrorMessage(null);
@@ -42,7 +44,7 @@ function Reviews( {reviews, setReviews, categories, setCategories} ) {
 
     return (
         <main>
-            {categoryQuery ? <h1>{utils.createUserFriendlyCategoryName(categoryQuery)} Reviews</h1> : <h1>All Reviews</h1>}
+            {categoryQuery ? <h1>{utils.createUserFriendlyCategoryName(categoryQuery)} Reviews</h1> : <h1>All Reviews</h1>}            
 
             <div id="category-links">
                 {categories.map((category) => {

@@ -12,23 +12,41 @@ img {
 header,
 footer {
   background: #000000;
-  color: #ffffff;
 }
 
 header {
   padding: 10px;
+  font-size: 2rem;
 }
 
-#logo {
-  font-size: 2rem;
+header a:link,
+header a:visited,
+header a:active {
+  color: #ffffff;
+}
+
+header a:hover {
+  color: #888888;
 }
 
 nav {
   background: #e0e0e0;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
-  padding: 10px;
+  padding: 5px;
+  font-size: 1.2rem;
+}
+
+nav a:link,
+nav a:visited,
+nav a:active {
+  color: #000000;
+}
+
+nav a:hover {
+  color: #888888;
 }
 
 main {
@@ -39,6 +57,14 @@ main {
 
 p {
   line-height: 2rem;
+}
+
+.review-card h2 {
+  color: #000000;
+}
+
+.review-card h2:hover {
+  color: #888888;
 }
 
 #category-cards {
@@ -82,9 +108,24 @@ p {
   padding: 10px;
 }
 
+#category-links a:link,
+#category-links a:visited,
+#category-links a:active,
+#sort-by-review-properties a:link,
+#sort-by-review-properties a:active,
+#sort-by-review-properties a:visited {
+  color: #000000;
+}
+
+#category-links a:hover,
+#sort-by-review-properties a:hover {
+  color: #888888;
+}
+
 button {
   padding: 10px;
   font-weight: bold;
+  border: 0px;
 }
 
 #single-review-votes button {
