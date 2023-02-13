@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
+
 function Header() {
     return (
         <header>
-            <div id="logo">Johnny's Games Review Site</div>
+            <Link to="/">The Games Review Site</Link>
         </header>
     )
 }
