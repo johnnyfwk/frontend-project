@@ -1,8 +1,8 @@
-Live URL: https://preeminent-palmier-cdcdc9.netlify.app/
-
 A made-up games review site with example data where visitors can read and write reviews for board games, vote on reviews, filter by category, and sort by properties.
 
-This frontend project was created using React and uses Axios to pull data from the backend (Live URL: https://backend-project-ji5u.onrender.com/, Github repo: https://github.com/johnnyfwk/backend-project).
+This project was created using React and uses Axios to pull data from the backend (Live URL: https://backend-project-ji5u.onrender.com/, Github repo: https://github.com/johnnyfwk/backend-project).
+
+Live URL: https://preeminent-palmier-cdcdc9.netlify.app/
 
 To run this project locally:
 - go to the Github repo at https://github.com/johnnyfwk/frontend-project;
